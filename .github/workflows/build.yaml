@@ -19,6 +19,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: gateway
+          context: ./gateway
           push: true
           tags: gportal/pmproxy-gateway:latest
