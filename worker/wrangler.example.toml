@@ -1,0 +1,14 @@
+name = "pm-proxy"
+compatibility_date = "2023-05-17"
+main = "src/index.ts"
+account_id = "<cloudflare-account-id>"
+routes = [
+    { pattern = "*.pm.example.com/*", zone_name = "example.com" }
+]
+
+
+[vars]
+JWT_SECRET = "my-secure-secret"
+JWT_COOKIE = 'pm-session'
+PROXY_PORT = 8443
+SENTRY_DSN = "https://<key>@sentry.example.com/1337"
