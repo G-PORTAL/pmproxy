@@ -22,6 +22,18 @@ The Gateway component intercepts incoming WebSocket connections, employing base6
 5. The Gateway is now running on port 8443
 6. Configure firewall rules to prevent direct communication with the gateway
 
+Alternatively, if you do not want to build the binary yourself, you can use the docker image we build directly:
+```bash
+docker run -d \
+  -p 8443:8443 \
+  -v /etc/letsencrypt/live/pm.example.com/fullchain.pem:/etc/ssl/origin.crt:ro \
+  -v /etc/letsencrypt/live/pm.example.com/privkey.pem:/etc/ssl/origin.key:ro \
+  -e JWT_KEY=changeme \
+  -e GIN_MODE=release \
+  -e LISTEN=0.0.0.0:8443 \
+  gportal/pmproxy-gateway:latest
+```
+
 ## JWT Authentication
 The Worker component is responsible for pre-validating JWT Tokens. However, the Gateway is validating the JWT Tokens again in case somebody discovered a way to bypass the firewall rules. The Worker and the Gateway are both also ensuring that the token is not expired.
 In addition to the default claims, the Gateway also checks for the following claims:
